@@ -93,6 +93,79 @@ R1 = Q_ct  * Ts * eye(4)
 ```
 
 ---
+---
+
+# 🔁 Optimization Strategy and Data Usage
+
+## 🔹 Optimization on Short Calibration Segments
+
+Hyperparameter optimization does **not** require the full dataset.
+
+The Genetic Algorithm (GA) can be run on:
+
+- A small subset of trials  
+- A short calibration segment (e.g., first 30–60 seconds)  
+- A representative continuous data block  
+
+This significantly reduces computational load while still providing stable parameter estimates.
+
+After optimal parameters are found, they can be applied to the **full dataset** for tracking.
+
+---
+
+## 🔹 Trial-Based vs Continuous Data
+
+The optimization input `ytr` is expected to have shape:
+
+```
+[M x T x nTrials]
+```
+
+where:
+- `M` = channels
+- `T` = time samples
+- `nTrials` = number of trials
+
+However, the tracking input `sig_in` (used in `run_EKFOT`) can be provided as:
+
+```
+[M x T]
+```
+
+and may represent either:
+
+- Epoched trial data (concatenated or individual trials)
+- Fully continuous recordings
+
+---
+
+## ⭐ Recommended Practice
+
+While both formats are supported, it is **preferable that `sig_in` is provided as continuous data** when possible.
+
+Continuous data:
+
+- Avoids repeated EKF re-initialization across trials  
+- Produces smoother frequency trajectories  
+- Improves stability of damping estimates  
+- Better captures slow adaptation effects  
+- Is more appropriate for online/real-time BCI applications  
+
+For epoched data, consider concatenating trials if temporal continuity is meaningful.
+
+---
+
+## 🔬 Practical Workflow Example
+
+1. Select a short continuous segment (e.g., first 60 seconds)
+2. Run GA optimization on that segment
+3. Apply the optimized parameters to the full continuous recording
+4. Analyze frequency drift, amplitude changes, and uncertainty
+
+This two-step approach balances computational efficiency and estimation accuracy.
+
+---
+
 
 ## 🎯 Cost Function
 
@@ -122,7 +195,10 @@ ignore = 200;      % discard transient samples
 Expected shape:
 
 ```
-ytr : [M x T x nTrials]
+ytr : [M x T x nTrials]    or    [M x T] 
+  M:       channels
+  T:       time points
+  nTrias:  number of trials
 ```
 
 ---
