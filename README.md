@@ -93,7 +93,7 @@ R1 = Q_ct  * Ts * eye(4)
 ```
 
 ---
----
+
 
 # 🔁 Optimization Strategy and Data Usage
 
@@ -148,10 +148,18 @@ Continuous data:
 - Avoids repeated EKF re-initialization across trials  
 - Produces smoother frequency trajectories  
 - Improves stability of damping estimates  
-- Better captures slow adaptation effects  
-- Is more appropriate for online/real-time BCI applications  
+- Better captures slow adaptation or learning effects  
+- Is more suitable for online and real-time BCI applications  
 
-For epoched data, consider concatenating trials if temporal continuity is meaningful.
+The training data `ytr` used during hyperparameter optimization can, however, be structured as trials.  
+Using epoched trial data for optimization can be beneficial when the goal is to make the algorithm focus specifically on task-related dynamics (e.g., motor imagery periods, cue-locked activity, or event-related oscillatory changes).
+
+A practical strategy is therefore:
+
+1. Use task-relevant trials (`ytr`) to optimize EKF hyperparameters.
+2. Apply the optimized parameters to continuous data (`sig_in`) for stable and physiologically meaningful tracking.
+
+This separation between optimization and full-data tracking allows both computational efficiency and improved sensitivity to relevant neural dynamics.
 
 ---
 
