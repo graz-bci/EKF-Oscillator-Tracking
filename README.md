@@ -14,7 +14,9 @@ It includes:
 - optional GA + fmincon hybrid refinement for stable parameter selection
 
 
-/ [root]
+## 📁 Structure
+
+```text
 ├── code
 │   ├── EKFOT.m           # EKF oscillator tracking cost for optimization
 │   ├── GA_EKFOT.m        # GA wrapper: objective over trials/channels + GA call
