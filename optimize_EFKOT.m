@@ -1,4 +1,4 @@
-function [lamm, err_gm] = optimize_EFKOT(ytr, ignore, Fs)
+function [lamm, err_gm] = optimize_EKFOT(ytr, ignore, Fs)
 
 % --- Hybrid GA + fmincon options ---
 fminuncOptions = optimoptions(@fmincon, ...
