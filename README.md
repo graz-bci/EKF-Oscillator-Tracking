@@ -267,6 +267,61 @@ ptr(k) = norm(P(k),'fro')
 
 ---
 
+# Relation to the Pole Tracking Repository
+
+This repository is closely related to the **Pole Tracking** implementation:
+
+https://github.com/kyriakikostoglou/PoleTracking
+
+However, the two approaches differ conceptually.
+
+---
+
+## Pole Tracking (reference)
+
+• Tracks **multiple poles simultaneously**  
+• Uses a **time-varying autoregressive (TV-AR) representation**  
+• Focuses on **tracking spectral peak locations**
+
+**Interpretation of pole magnitude:**
+
+Each pole has a magnitude between **0 and 1**, which reflects the **stability (damping)** of the oscillation — not the true signal amplitude.
+
+- Magnitude → close to **1**: sustained oscillation (sharp peak)  
+- Magnitude → smaller values: damped/transient oscillation (broader peak)
+
+→ Indicates **spectral prominence**, not instantaneous amplitude
+
+---
+
+## EKF Oscillator Tracking (this repository)
+
+https://github.com/kyriakikostoglou/EKF-Oscillator-Tracking
+
+• Models a **single damped oscillator** in state-space form  
+• Tracks **instantaneous amplitude and frequency explicitly**  
+• Uses a **nonlinear EKF framework**
+
+Amplitude is directly estimated as:
+
+A(n) = sqrt(x1(n)^2 + x2(n)^2)
+
+→ Represents **true amplitude dynamics**
+
+---
+
+## Key differences
+
+| Feature | Pole Tracking | EKF Oscillator |
+|--------|-------------|----------------|
+| Multiple oscillations | ✓ | ✗ |
+| Instantaneous amplitude | ✗ | ✓ |
+| Spectral peak tracking | ✓ | ✓ |
+| Model | TV-AR poles | Nonlinear oscillator |
+| Oscillators | Multiple | Single |
+
+---
+
 ## 📚 Citation
 
 To be announced
