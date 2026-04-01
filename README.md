@@ -13,6 +13,11 @@ The repository includes:
 
 ---
 
+## 📚 Reference
+
+Kostoglou K, Müller-Putz GR (2026) Opposing cortical forces: Alpha slowing and sensorimotor mu acceleration during motor-related BCI training. PLoS Comput Biol 22(4): e1014112. https://doi.org/10.1371/journal.pcbi.1014112
+
+
 ## 📁 Repository Structure
 
 ```
@@ -319,12 +324,6 @@ A(n) = sqrt(x1(n)^2 + x2(n)^2)
 | Spectral peak tracking | ✓ | ✓ |
 | Model | TV-AR poles | Nonlinear oscillator |
 | Oscillators | Multiple | Single |
-
----
-
-## 📚 Citation
-
-To be announced
 
 ---
 
